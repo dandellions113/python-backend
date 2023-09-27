@@ -1,1 +1,3 @@
-path = 'out_json/processed_Defence Ministry_data.json'
+curr=db.collection("news")
+    # for i in lst:
+    #     curr.document("0bbkrZMdvotCvRWSNDbC").update(i)

@@ -1,20 +1,31 @@
 import tweetnlp
-import db_download
+# import db_download
 import db_upload
 import json
-with open("data/times_of_india/Defence Ministry_data.json","r") as f:
-    data=json.load(f)
-model1 = tweetnlp.load_model('sentiment')  # Or `model = tweetnlp.Sentiment()` 
+import time
+def main(path,keyword):
+    with open(path,"r",encoding='utf-8') as f:
+        data=json.loads(f.read())
+    model1 = tweetnlp.load_model('sentiment')  # Or `model = tweetnlp.Sentiment()` 
 
-towrite=[]
-for i in data:
-    # print(type(i))
-    temp=i['Headline']
-    tsen=model1.sentiment(temp)
-    i['sentiment']=tsen["label"]
-    i['cms']=i['Img'].endswith(".cms")
-    towrite.append(i)
-db_upload.main(towrite)
+    towrite=[]
+    for i in data:
+        # print(type(i))
+        temp=i['Headline']
+        tsen=model1.sentiment(temp)
+        i['sentiment']=tsen["label"]
+        i['cms']=i['Img'].endswith(".cms")
+        i['time']=time.time()
+        towrite.append(i)
+    db_upload.main(towrite)
+
+
+if __name__ == "__main__":
+    main("data/times_of_india/","Finance Ministry")
+
+
+
+
 # with open("out_json/processed_Defence Ministry_data.json", 'w', encoding='utf-8') as json_file:
 #     json.dump(towrite,json_file,indent=4)
 

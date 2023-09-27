@@ -21,7 +21,6 @@ class TimesOfIndia:
             soup = BeautifulSoup(html_content, 'html.parser')
 
             target_divs = soup.find_all('div', class_='uwU81')
-
             extracted_data = []
 
             for div in target_divs:
