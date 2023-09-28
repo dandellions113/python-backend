@@ -1,18 +1,12 @@
-import http.client
+from gnews import GNews
 import json
-conn = http.client.HTTPSConnection("3677-2409-40d1-1a-2344-1455-b3ea-956c-a5f.ngrok-free.app",timeout=100)
-payload = ''
-headers = {
-  'ngrok-skip-browser-warning': 'hello'
-}
-def main():
-  conn.request("GET", "/user/?user=%22H%22", payload, headers)
-  res = conn.getresponse()
-  data = res.read()
-  # print(data)
-  # print(res.status)
-  fin=data.decode("utf-8")
-  print(type(fin))
-  return fin
-if __name__ == '__main__':
-  main()
+def main(lang,keyword,fname):
+	google_news = GNews(language=lang, country='IN', period='7d', start_date=None, end_date=None, max_results=10)
+	news = google_news.get_news(keyword)
+	for i in news:
+		i['lang']=lang
+	# with open(f"in_json/{fname}_{lang}.json", 'w', encoding='utf-8') as json_file:
+	# 	json.dump(news,json_file,indent=4,ensure_ascii=False)
+	return news
+if __name__=="__main__":
+	json.dump(main("hi","वित्त","main"),open("news.json","w",encoding='utf-8'),indent=4,ensure_ascii=False)
