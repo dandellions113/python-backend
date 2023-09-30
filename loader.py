@@ -1,6 +1,6 @@
 import tweetnlp
 # import db_download
-import db_upload
+# import db_upload
 import time
 model1 = tweetnlp.load_model('sentiment', multilingual=True)
 def main(lst,keyword):
