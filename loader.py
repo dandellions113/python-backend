@@ -1,6 +1,7 @@
 import tweetnlp
 # import db_download
 # import db_upload
+import json
 import time
 model1 = tweetnlp.load_model('sentiment', multilingual=True)
 def main(lst,keyword):
@@ -22,8 +23,11 @@ def main(lst,keyword):
 
 
 if __name__ == "__main__":
-    main("news.json","Finance Ministry")
 
+    x=main(json.load(open("news.json","r",encoding='utf-8')),"वित्त")
+    #dump x to json
+    with open("temp.json","w",encoding='utf-8') as f:
+        json.dump(x,f,indent=4,ensure_ascii=False)
 
 
 
